@@ -1,0 +1,9 @@
+node_modules
+dist
+dist-packages
+out
+release
+*.log
+*.exe
+*.dmg
+*.AppImage
