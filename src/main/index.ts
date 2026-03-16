@@ -1,8 +1,10 @@
-import { app, shell, BrowserWindow, ipcMain } from 'electron'
+import { app, shell, BrowserWindow, ipcMain, Tray, Menu, Notification } from 'electron'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
 import { autoUpdater } from 'electron-updater'
+
+let tray: Tray | null = null
 
 function createWindow(): void {
   // Create the browser window.
@@ -54,6 +56,48 @@ app.whenReady().then(() => {
   ipcMain.on('ping', () => console.log('pong'))
 
   createWindow()
+
+  new Notification({
+    title: 'Electron Todo App',
+    body: 'Application started successfully'
+  }).show()
+
+  tray = new Tray(icon)
+
+  const contextMenu = Menu.buildFromTemplate([
+    {
+      label: 'Show App',
+      click: () => {
+        BrowserWindow.getAllWindows()[0].show()
+      }
+    },
+    {
+      label: 'Quit',
+      click: () => {
+        app.quit()
+      }
+    }
+  ])
+
+  tray.setToolTip('Electron Todo App')
+  tray.setContextMenu(contextMenu)
+
+  autoUpdater.on('checking-for-update', () => {
+    console.log('Checking for update...')
+  })
+
+  autoUpdater.on('update-not-available', () => {
+    console.log('No update available')
+  })
+
+  autoUpdater.on('update-available', () => {
+    console.log('Update available!')
+  })
+
+  autoUpdater.on('error', (err) => {
+    console.log('Update error:', err)
+  })
+
   autoUpdater.checkForUpdatesAndNotify()
 
   app.on('activate', function () {
