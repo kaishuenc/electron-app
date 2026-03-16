@@ -30,7 +30,7 @@ const deleteTodo = (id: number): void =>
 setTodos(prev => prev.filter(t => t.id !== id))
 return (
 <div className="app">
-<h1>My Todo List</h1>
+<h1>My Todo List v1.1</h1>
 <div className="input-row">
 <input
 value={input}
