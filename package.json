@@ -46,7 +46,7 @@
     },
     "build": {
         "appId": "com.kaishuenc.electronapp",
-        "productName": "ElectronApp",
+        "productName": "My notes",
         "directories": {
             "output": "dist-packages"
         },
