@@ -1,9 +1,9 @@
-import { useState, useEffect } from "react"
-import "./App.css"
+import { useState, useEffect } from 'react'
+import './App.css'
 
-import Header from "./components/header"
-import NoteInput from "./components/noteinput"
-import NoteCard from "./components/notecard"
+import Header from './components/header'
+import NoteInput from './components/noteinput'
+import NoteCard from './components/notecard'
 
 interface Note {
   id: number
@@ -13,20 +13,21 @@ interface Note {
   color: string
 }
 
-const COLORS = ["#fff9c4", "#fce4ec", "#e8f5e9", "#e3f2fd"]
+const COLORS = ['#fff9c4', '#fce4ec', '#e8f5e9', '#e3f2fd']
 
 function App() {
   const [notes, setNotes] = useState<Note[]>([])
-  const [title, setTitle] = useState("")
-  const [content, setContent] = useState("")
+  const [title, setTitle] = useState('')
+  const [content, setContent] = useState('')
+  const [search, setSearch] = useState('')
 
   useEffect(() => {
-    const saved = localStorage.getItem("notes")
+    const saved = localStorage.getItem('notes')
     if (saved) setNotes(JSON.parse(saved))
   }, [])
 
   useEffect(() => {
-    localStorage.setItem("notes", JSON.stringify(notes))
+    localStorage.setItem('notes', JSON.stringify(notes))
   }, [notes])
 
   const addNote = () => {
@@ -36,17 +37,17 @@ function App() {
       id: Date.now(),
       title,
       content,
-      date: Date.now(), 
+      date: Date.now(),
       color: COLORS[Math.floor(Math.random() * COLORS.length)]
     }
 
     setNotes([newNote, ...notes])
-    setTitle("")
-    setContent("")
+    setTitle('')
+    setContent('')
   }
 
   const deleteNote = (id: number) => {
-    setNotes(notes.filter(n => n.id !== id))
+    setNotes(notes.filter((n) => n.id !== id))
   }
 
   return (
@@ -61,10 +62,28 @@ function App() {
         addNote={addNote}
       />
 
+      <div className="search-bar">
+        <input
+          type="text"
+          placeholder="Search notes..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
+        <button className="clear-search" onClick={() => setSearch('')}>
+          ✕
+        </button>
+      </div>
+
       <div className="notes-grid">
-        {notes.map(note => (
-          <NoteCard key={note.id} note={note} onDelete={deleteNote} />
-        ))}
+        {notes
+          .filter(
+            (note) =>
+              note.title.toLowerCase().includes(search.toLowerCase()) ||
+              note.content.toLowerCase().includes(search.toLowerCase())
+          )
+          .map((note) => (
+            <NoteCard key={note.id} note={note} onDelete={deleteNote} />
+          ))}
       </div>
     </div>
   )
