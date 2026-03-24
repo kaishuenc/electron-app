@@ -31,7 +31,7 @@ function App() {
   }, [notes])
 
   const addNote = () => {
-    if (!title || !content) return
+    if (!title.trim() || !content.trim()) return
 
     const newNote: Note = {
       id: Date.now(),
@@ -49,6 +49,20 @@ function App() {
   const deleteNote = (id: number) => {
     setNotes(notes.filter((n) => n.id !== id))
   }
+
+  const editNote = (id: number, newTitle: string, newContent: string) => {
+    setNotes(
+      notes.map((n) =>
+        n.id === id ? { ...n, title: newTitle, content: newContent } : n
+      )
+    )
+  }
+
+  const filteredNotes = notes.filter(
+    (note) =>
+      note.title.toLowerCase().includes(search.toLowerCase()) ||
+      note.content.toLowerCase().includes(search.toLowerCase())
+  )
 
   return (
     <div className="app">
@@ -69,21 +83,28 @@ function App() {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
-        <button className="clear-search" onClick={() => setSearch('')}>
-          ✕
-        </button>
+        {search && (
+          <button className="clear-search" onClick={() => setSearch('')}>
+            ✕
+          </button>
+        )}
       </div>
 
       <div className="notes-grid">
-        {notes
-          .filter(
-            (note) =>
-              note.title.toLowerCase().includes(search.toLowerCase()) ||
-              note.content.toLowerCase().includes(search.toLowerCase())
-          )
-          .map((note) => (
-            <NoteCard key={note.id} note={note} onDelete={deleteNote} />
-          ))}
+        {filteredNotes.length === 0 ? (
+          <div className="empty">
+            {search ? 'No results found' : 'No notes yet'}
+          </div>
+        ) : (
+          filteredNotes.map((note) => (
+            <NoteCard
+              key={note.id}
+              note={note}
+              onDelete={deleteNote}
+              onEdit={editNote}
+            />
+          ))
+        )}
       </div>
     </div>
   )

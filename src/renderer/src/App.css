@@ -12,16 +12,16 @@ html, body {
 
 body {
   font-family: 'Nunito', sans-serif;
-  background: #f0f2f5;
+  background: #eef1f6;
   min-height: 100vh;
   color: #2d2d2d;
   overflow-y: auto;
 }
 
 .app {
-  max-width: 720px;
+  max-width: 900px;
   margin: 0 auto;
-  padding: 40px 20px 80px;
+  padding: 40px 24px 80px;
 }
 
 .header {
@@ -29,7 +29,7 @@ body {
   flex-direction: column;
   align-items: center;
   gap: 6px;
-  margin-bottom: 24px;
+  margin-bottom: 28px;
 }
 
 .header-title {
@@ -40,30 +40,30 @@ body {
 }
 
 .header h1 {
-  font-size: 28px;
+  font-size: 30px;
   font-weight: 800;
   color: #1a1a2e;
 }
 
 .note-count {
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 600;
   color: #888;
   background: white;
-  padding: 4px 12px;
+  padding: 6px 14px;
   border-radius: 20px;
   box-shadow: 0 1px 4px rgba(0,0,0,0.08);
 }
 
 .input-card {
   background: white;
-  border-radius: 16px;
-  padding: 20px;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
-  margin-bottom: 20px;
+  border-radius: 18px;
+  padding: 24px;
+  box-shadow: 0 3px 14px rgba(0,0,0,0.08);
+  margin-bottom: 22px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
 }
 
 .input-title {
@@ -71,10 +71,10 @@ body {
   border: none;
   outline: none;
   font-family: inherit;
-  font-size: 17px;
+  font-size: 18px;
   font-weight: 700;
   color: #1a1a2e;
-  padding: 4px 0;
+  padding: 6px 0;
   border-bottom: 2px solid #f0f0f0;
 }
 
@@ -87,11 +87,11 @@ body {
   border: none;
   outline: none;
   font-family: inherit;
-  font-size: 14px;
+  font-size: 15px;
   color: #444;
   resize: none;
-  min-height: 90px;
-  line-height: 1.6;
+  min-height: 110px;
+  line-height: 1.7;
 }
 
 .input-footer {
@@ -99,11 +99,11 @@ body {
   justify-content: space-between;
   align-items: center;
   border-top: 1px solid #f5f5f5;
-  padding-top: 8px;
+  padding-top: 10px;
 }
 
 .hint {
-  font-size: 11px;
+  font-size: 12px;
   color: #bbb;
 }
 
@@ -111,9 +111,9 @@ body {
   background: #1a1a2e;
   color: white;
   border: none;
-  border-radius: 10px;
-  padding: 9px 22px;
-  font-size: 14px;
+  border-radius: 12px;
+  padding: 10px 26px;
+  font-size: 15px;
   font-weight: 700;
   cursor: pointer;
 }
@@ -128,22 +128,22 @@ body {
 }
 
 .search-bar {
-  width: 100%; 
+  width: 100%;
   display: flex;
   align-items: center;
   background: white;
-  border-radius: 12px;
-  padding: 10px 14px;
-  gap: 8px;
-  box-shadow: 0 1px 6px rgba(0,0,0,0.06);
-  margin-bottom: 20px;
+  border-radius: 14px;
+  padding: 14px 18px;
+  gap: 10px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+  margin-bottom: 22px;
 }
 
 .search-bar input {
   flex: 1;
   border: none;
   outline: none;
-  font-size: 14px;
+  font-size: 15px;
 }
 
 .clear-search {
@@ -159,8 +159,8 @@ body {
 
 .notes-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr)); /* ⭐ 关键修复 */
-  gap: 14px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
   width: 100%;
 }
 
@@ -178,15 +178,15 @@ body {
 }
 
 .note-card {
-  width: 100%; 
-  background: white;
-  border-radius: 14px;
-  padding: 16px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  width: 100%;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 3px 12px rgba(0,0,0,0.08);
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 10px;
   transition: 0.2s;
+  overflow: hidden;
 }
 
 .note-card:hover {
@@ -195,32 +195,36 @@ body {
 }
 
 .note-title {
-  font-size: 15px;
+  font-size: 17px;
   font-weight: 800;
+  word-break: break-word;
 }
 
 .note-date {
-  font-size: 11px;
+  font-size: 12px;
   color: #999;
 }
 
 .note-content {
-  font-size: 13px;
+  font-size: 14px;
   color: #555;
-  line-height: 1.6;
+  line-height: 1.7;
   white-space: pre-wrap;
+  word-break: break-word;
+  max-height: 140px;
+  overflow-y: auto;
 }
 
 .note-actions {
   display: flex;
-  gap: 6px;
+  gap: 8px;
 }
 
 button {
   border: none;
-  border-radius: 7px;
-  padding: 5px 12px;
-  font-size: 12px;
+  border-radius: 8px;
+  padding: 6px 14px;
+  font-size: 13px;
   font-weight: 700;
   cursor: pointer;
 }
@@ -246,13 +250,18 @@ button {
 .edit-title, .edit-content {
   width: 100%;
   border: 1px solid rgba(0,0,0,0.12);
-  border-radius: 8px;
-  padding: 7px 10px;
+  border-radius: 10px;
+  padding: 8px 12px;
   font-family: inherit;
   outline: none;
 }
 
-.edit-content {
-  min-height: 70px;
+.edit-title {
+  font-size: 15px;
+  font-weight: 700;
 }
 
+.edit-content {
+  font-size: 14px;
+  min-height: 80px;
+}

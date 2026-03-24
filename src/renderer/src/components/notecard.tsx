@@ -1,3 +1,4 @@
+import { useState } from "react"
 import { format } from "date-fns"
 
 interface Note {
@@ -11,24 +12,70 @@ interface Note {
 interface Props {
   note: Note
   onDelete: (id: number) => void
+  onEdit: (id: number, title: string, content: string) => void
 }
 
-function NoteCard({ note, onDelete }: Props) {
+function NoteCard({ note, onDelete, onEdit }: Props) {
+  const [isEditing, setIsEditing] = useState(false)
+  const [title, setTitle] = useState(note.title)
+  const [content, setContent] = useState(note.content)
+
   return (
     <div className="note-card" style={{ background: note.color }}>
-      <h3 className="note-title">{note.title}</h3>
+      {isEditing ? (
+        <>
+          <input
+            className="edit-title"
+            value={title}
+            onChange={e => setTitle(e.target.value)}
+          />
 
-      <span className="note-date">
-        {format(note.date, "MMM d, HH:mm")}
-      </span>
+          <textarea
+            className="edit-content"
+            value={content}
+            onChange={e => setContent(e.target.value)}
+          />
 
-      <p className="note-content">{note.content}</p>
+          <div className="note-actions">
+            <button
+              className="btn-save"
+              onClick={() => {
+                onEdit(note.id, title, content)
+                setIsEditing(false)
+              }}
+            >
+              Save
+            </button>
 
-      <div className="note-actions">
-        <button className="btn-delete" onClick={() => onDelete(note.id)}>
-          Delete
-        </button>
-      </div>
+            <button
+              className="btn-cancel"
+              onClick={() => setIsEditing(false)}
+            >
+              Cancel
+            </button>
+          </div>
+        </>
+      ) : (
+        <>
+          <h3 className="note-title">{note.title}</h3>
+
+          <span className="note-date">
+            {format(note.date, "MMM d, HH:mm")}
+          </span>
+
+          <p className="note-content">{note.content}</p>
+
+          <div className="note-actions">
+            <button className="btn-edit" onClick={() => setIsEditing(true)}>
+              Edit
+            </button>
+
+            <button className="btn-delete" onClick={() => onDelete(note.id)}>
+              Delete
+            </button>
+          </div>
+        </>
+      )}
     </div>
   )
 }
